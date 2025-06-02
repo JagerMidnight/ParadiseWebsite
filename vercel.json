@@ -1,5 +1,4 @@
 {
-  "_comment": "Use this to add pages. All pages will be stored in /public/pages/*page and uses a rewrite that makes pages like /login go to pages like /public/pages/login/index.html.",
   "rewrites": [
     { 
       "source": "/", 
