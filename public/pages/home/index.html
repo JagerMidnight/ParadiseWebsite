@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devils Paradise</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures body takes at least full viewport height */
+            padding-bottom: 80px; /* Adjust this value to match your footer's height */
+        }
+        main {
+            flex: 1; /* Allows main content to grow and push footer down */
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000; /* Ensures footer stays on top of other content */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+    <header class="bg-gray-800 p-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <img src="assets/logo.webp" alt="Devils Paradise Logo" class="h-16 w-auto">
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#" class="hover:text-gray-300">About Us<a><li>
+                    <li><a href="#" class="hover:text-gray-300">Roster<a><li>
+                    <li><a href="#" class="hover:text-gray-300">Raids</a><li>
+                    <li><a href="#" class="hover:text-gray-300">Contact</a><li>
+                    <li><a href="/r?url=https://discord.gg/5UPSebzn7W" class="hover:text-gray-300">Discord</a><li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-8 p-4">
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold mb-4">Welcome to Devils Paradise!</h2>
+            <p class="text-lg">We are a dedicated World of Warcraft guild focused on raiding and community. Join us in our adventures!</p>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold mb-4">Latest News</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">Raid Night Update</h3>
+                    <p>Our next raid night is scheduled for Friday at 8 PM server time.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">New Members Welcome</h3>
+                    <p>We're currently recruiting new members. All classes are welcome!</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">Guild Event</h3>
+                    <p>Join us for a guild event this Saturday for some fun and games.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 p-4 text-center fixed-footer">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+            <nav class="mb-4 md:mb-0">
+                <ul class="flex flex-col md:flex-row space-x-0 md:space-x-4 space-y-2 md:space-y-0">
+                    <li><a href="#" class="hover:text-gray-300">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Terms of Service</a></li>
+                </ul>
+            </nav>
+            <p>&copy; 2025 Devils Paradise. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
