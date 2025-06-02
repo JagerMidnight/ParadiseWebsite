@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaving Devils Paradise</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans flex items-center justify-center min-h-screen">
+
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg text-center max-w-md mx-auto">
+        <h1 class="text-3xl font-bold mb-6">You are leaving Devil's Paradise!</h1>
+        <p class="text-lg mb-8">
+            Click 'Yes' to proceed to <span id="destinationLink" class="font-semibold text-blue-400">the external website</span>.
+        </p>
+        <button
+            onclick="confirmRedirect()"
+            class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-xl transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75">Yes.</button>
+    </div>
+
+    <script>
+        let redirectUrl = '';
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const urlParam = params.get('url');
+
+            const destinationLinkSpan = document.getElementById('destinationLink');
+
+            if (urlParam) {
+                try {
+                    redirectUrl = decodeURIComponent(urlParam);
+                    const url = new URL(redirectUrl);
+                    destinationLinkSpan.textContent = url.hostname;
+                } catch (e) {
+                    destinationLinkSpan.textContent = 'an invalid external website';
+                    console.error("Invalid URL parameter:", e);
+                }
+            } else {
+                destinationLinkSpan.textContent = 'an unknown external website';
+            }
+        });
+
+        function confirmRedirect() {
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+            } else {
+                alert('No valid redirection URL provided.');
+            }
+        }
+    </script>
+</body>
+</html>
