@@ -2,16 +2,16 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/public/pages/home/index.html"
+      "source": "/assets/:file",
+      "destination": "assets/:file"
     },
     {
       "source": "/:page",
-      "destination": "/public/pages/:page/index.html"
+      "destination": "pages/:page/index.html"
     },
     {
-      "source": "/assets/:file",
-      "destination": "/public/assets/:file"
+      "source": "/",
+      "destination": "/pages/home/index.html"
     }
   ]
 }
