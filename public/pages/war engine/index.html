@@ -1,1 +1,101 @@
-<p>Not yet implemented</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+        .container {
+            max-width: 1200px;
+            padding: 1.5rem;
+            width: 100%;
+        }
+        .guide-button {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .guide-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        .tab-button.active {
+            border-bottom: 3px solid #a78bfa;
+            color: #a78bfa;
+        }
+        .tab-content {
+            display: none !important;
+        }
+        .tab-content.active {
+            display: block !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    <div class="container mx-auto py-12 px-4">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-center mb-12 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            War Engine
+        </h1>
+
+        <div class="flex justify-center mb-8 border-b border-gray-700">
+            <button class="tab-button active py-3 px-6 text-xl font-semibold text-gray-400 hover:text-purple-400 focus:outline-none transition-colors duration-300" data-tab="dungeon">Dungeon Guides</button>
+            <button class="tab-button py-3 px-6 text-xl font-semibold text-gray-400 hover:text-purple-400 focus:outline-none transition-colors duration-300" data-tab="class">Class Guides</button>
+            <button class="tab-button py-3 px-6 text-xl font-semibold text-gray-400 hover:text-purple-400 focus:outline-none transition-colors duration-300" data-tab="crafting">Crafting Corner</button>
+        </div>
+
+        <div id="dungeon" class="tab-content active bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 text-center flex flex-col items-center justify-center space-y-3">
+            <h2 class="text-4xl font-bold mb-2 text-purple-300">Dungeon Guides</h2>
+            <p class="text-gray-400 text-xl max-w-2xl">
+                Dive deep into comprehensive strategies and detailed walkthroughs for every dungeon. Learn boss mechanics, optimal routes, and hidden secrets to conquer challenges with unparalleled ease!
+            </p>
+        </div>
+
+        <div id="class" class="tab-content bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 text-center flex flex-col items-center justify-center space-y-3">
+            <h2 class="text-4xl font-bold mb-2 text-purple-300">Class Guides</h2>
+            <p class="text-gray-400 text-xl max-w-2xl">
+                Master your character with our expert-crafted, in-depth guides covering optimal builds, precise ability rotations, and advanced tips for every class. Unleash your full potential!
+            </p>
+        </div>
+
+        <div id="crafting" class="tab-content bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 text-center flex flex-col items-center justify-center space-y-3">
+            <h2 class="text-4xl font-bold mb-2 text-purple-300">Crafting Corner</h2>
+            <p class="text-gray-400 text-xl max-w-2xl">
+                Our guides cover essential recipes, efficient material farming locations, and smart strategies to maximize your crafting output.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                button.classList.add('active');
+
+                const targetTab = button.dataset.tab;
+                const targetContent = document.getElementById(targetTab);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
