@@ -9,29 +9,31 @@ const dungeonSearchInput = document.getElementById('dungeonSearch');
 const dungeonCardsGrid = document.getElementById('dungeonCardsGrid');
 const noResultsMessage = document.getElementById('noResults');
 
-  tabButtons.forEach(button => {
+const legalToggleBtn = document.getElementById('legal-toggle-btn');
+const legalSummary = document.getElementById('legal-summary');
+const legalFullContent = document.getElementById('legal-full-content');
+
+tabButtons.forEach(button => {
     button.addEventListener('click', () => {
-        tabButtons.forEach(btn => {
-            btn.classList.remove('active');
-        });
-        tabContents.forEach(content => {
-            content.classList.remove('active');
-        });
+        const targetTab = button.dataset.tab;
+
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
 
         button.classList.add('active');
-
-        const targetTab = button.dataset.tab;
         const targetContent = document.getElementById(targetTab);
         if (targetContent) {
             targetContent.classList.add('active');
         }
 
-        if (targetTab !== 'dungeon') {
+        if (targetTab === 'dungeon') {
             dungeonCardsSection.classList.remove('expanded');
+            exploreDungeonsBtn.textContent = 'Explore All Dungeon Guides';
             exploreDungeonsBtn.style.display = 'block';
         } else {
-             dungeonCardsSection.classList.remove('expanded');
-             exploreDungeonsBtn.style.display = 'block';
+            dungeonCardsSection.classList.remove('expanded');
+            exploreDungeonsBtn.textContent = 'Explore All Dungeon Guides';
+            exploreDungeonsBtn.style.display = 'block';
         }
     });
 });
@@ -73,20 +75,45 @@ function renderDungeonCards(dungeonsToRender) {
     }
 }
 
-renderDungeonCards(dungeonData);
+if (exploreDungeonsBtn && dungeonCardsSection) {
+    exploreDungeonsBtn.addEventListener('click', () => {
+        dungeonCardsSection.classList.toggle('expanded');
 
-exploreDungeonsBtn.addEventListener('click', () => {
-    dungeonCardsSection.classList.add('expanded');
-    exploreDungeonsBtn.style.display = 'none';
-    dungeonSearchInput.focus();
+        if (dungeonCardsSection.classList.contains('expanded')) {
+            exploreDungeonsBtn.textContent = 'Hide Dungeon Guides';
+            dungeonSearchInput.focus();
+            renderDungeonCards(dungeonData);
+        } else {
+            exploreDungeonsBtn.textContent = 'Explore All Dungeon Guides';
+        }
+    });
+}
+
+if (dungeonSearchInput && dungeonCardsGrid && noResultsMessage) {
+    dungeonSearchInput.addEventListener('input', (event) => {
+        const searchTerm = event.target.value.toLowerCase();
+        const filteredDungeons = dungeonData.filter(dungeon =>
+            dungeon.title.toLowerCase().includes(searchTerm) ||
+            dungeon.category.toLowerCase().includes(searchTerm)
+        );
+        renderDungeonCards(filteredDungeons);
+    });
+}
+
+if (legalToggleBtn && legalSummary && legalFullContent) {
+    legalToggleBtn.addEventListener('click', function() {
+        if (legalFullContent.style.display === 'none' || legalFullContent.style.display === '') {
+            legalFullContent.style.display = 'block';
+            legalSummary.style.display = 'none';
+            legalToggleBtn.textContent = 'Show Less';
+        } else {
+            legalFullContent.style.display = 'none';
+            legalSummary.style.display = 'block';
+            legalToggleBtn.textContent = '... Show More';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
     renderDungeonCards(dungeonData);
-});
-
-dungeonSearchInput.addEventListener('input', (event) => {
-    const searchTerm = event.target.value.toLowerCase();
-    const filteredDungeons = dungeonData.filter(dungeon =>
-        dungeon.title.toLowerCase().includes(searchTerm) ||
-        dungeon.category.toLowerCase().includes(searchTerm)
-    );
-    renderDungeonCards(filteredDungeons);
 });
