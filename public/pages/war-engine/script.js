@@ -105,11 +105,11 @@ if (legalToggleBtn && legalSummary && legalFullContent) {
         if (legalFullContent.style.display === 'none' || legalFullContent.style.display === '') {
             legalFullContent.style.display = 'block';
             legalSummary.style.display = 'none';
-            legalToggleBtn.textContent = 'Show Less';
+            legalToggleBtn.textContent = 'Hide';
         } else {
             legalFullContent.style.display = 'none';
             legalSummary.style.display = 'block';
-            legalToggleBtn.textContent = '... Show More';
+            legalToggleBtn.textContent = 'Show';
         }
     });
 }
