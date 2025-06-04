@@ -38,23 +38,22 @@
         .tab-content.active {
             display: block !important;
         }
-        /* New style for the expanded dungeon content */
         .dungeon-cards-container {
-            max-height: 0; /* Start collapsed */
+            max-height: 0;
             overflow: hidden;
-            transition: max-height 0.7s ease-out, padding 0.7s ease-out; /* Smoother transition */
+            transition: max-height 0.7s ease-out, padding 0.7s ease-out;
             padding-top: 0;
             padding-bottom: 0;
-            opacity: 0; /* Start invisible */
-            pointer-events: none; /* Disable interaction when collapsed */
+            opacity: 0;
+            pointer-events: none;
         }
 
         .dungeon-cards-container.expanded {
-            max-height: 2000px; /* Increased max-height to ensure enough space */
-            padding-top: 2rem; /* Add padding when expanded */
+            max-height: 2000px;
+            padding-top: 2rem;
             padding-bottom: 2rem;
-            opacity: 1; /* Become visible */
-            pointer-events: all; /* Enable interaction when expanded */
+            opacity: 1;
+            pointer-events: all;
         }
         .dungeon-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -113,6 +112,6 @@
         </div>
     </div>
 
-    <script type="module" src="/dungeons.js"></script>
+    <script type="module" src="war-engine/dungeons.js"></script>
 </body>
 </html>
