@@ -63,30 +63,37 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
         }
 
-        /* --- Legal Info Specific Styles --- */
         .legal-paragraph {
             margin-bottom: 1rem;
-            font-size: 0.9rem; /* Slightly smaller for fine print */
-            color: #a0aec0; /* Lighter grey for fine print */
+            font-size: 0.9rem;
+            color: #a0aec0;
         }
         .legal-paragraph b {
-            color: #e2e8f0; /* Make headings bold and stand out slightly */
+            color: #e2e8f0;
         }
-        .hidden-legal-content {
+
+        #legal-summary {
+            font-size: 0.9rem;
+            color: #a0aec0;
+            margin-bottom: 1rem;
+        }
+
+        #legal-full-content {
             display: none;
         }
-        .show-more-btn {
+
+        #legal-toggle-btn {
             background: none;
             border: none;
-            color: #a78bfa; /* Purple link color */
+            color: #a78bfa;
             cursor: pointer;
             text-decoration: underline;
             padding: 0;
             font-size: inherit;
-            margin-left: 0.25rem; /* Small space after ellipses */
+            margin-top: 0.5rem;
         }
-        .show-more-btn:hover {
-            color: #c084fc; /* Lighter purple on hover */
+        #legal-toggle-btn:hover {
+            color: #c084fc;
         }
     </style>
 </head>
@@ -122,27 +129,35 @@
             </div>
 
             <div class="w-full text-left mt-8 p-4 bg-gray-700 rounded-lg shadow-inner border border-gray-600">
-                <h3 class="text-xl font-bold mb-4 text-purple-300 text-center">Important Legal Information & Disclaimers</h3>
+                <h3 class="text-xl font-bold mb-2 text-purple-300 text-center">Important Legal Information & Disclaimers</h3>
 
-                <p class="legal-paragraph">
-                    <b>Unofficial Fan Site & IP:</b> This website is an unofficial World of Warcraft fan site. World of Warcraft®, Warcraft®, and Blizzard Entertainment® are trademarks or registered trade...<span class="hidden-legal-content">marks of Blizzard Entertainment, Inc. This site is not endorsed by, affiliated with, or sponsored by Blizzard Entertainment, Inc. All other trademarks are the property of their respective owners. Content on this site related to Blizzard's intellectual property is used under principles of 'fair use' or Blizzard's fan content policies.</span><button class="show-more-btn" data-target="ip-content">Show More</button>
+                <p id="legal-summary">
+                    This website is an unofficial World of Warcraft fan site. World of Warcraft®, Warcraft®, and Blizzard Entertainment® are trademarks or registered trade
                 </p>
 
-                <p class="legal-paragraph">
-                    <b>External Links & Third-Party Resources:</b> Our website provides links to external third-party resources (e.g., Icy Veins, Wowhead) for informational purposes. We do not control, endorse, or guarantee the accuracy, completeness, or practices of these external sites. Visiting them is at your own risk; please review their respective terms and privacy policies.
-                </p>
+                <button id="legal-toggle-btn">... Show More</button>
 
-                <p class="legal-paragraph">
-                    <b>Information Accuracy & No Guarantees:</b> The information provided on this site, whether original or derived from external sources, is for general informational purposes only and is subject to change. We make no representations or warranties regarding its accuracy, completeness, or suitability for any purpose. Reliance on this information is strictly at your own risk. Game content and strategies change frequently, and our information may become outdated.
-                </p>
+                <div id="legal-full-content">
+                    <p class="legal-paragraph">
+                        <b>Unofficial Fan Site & IP:</b> This website is an unofficial World of Warcraft fan site. World of Warcraft®, Warcraft®, and Blizzard Entertainment® are trademarks or registered trademarks of Blizzard Entertainment, Inc. This site is not endorsed by, affiliated with, or sponsored by Blizzard Entertainment, Inc. All other trademarks are the property of their respective owners. Content on this site related to Blizzard's intellectual property is used under principles of 'fair use' or Blizzard's fan content policies.
+                    </p>
 
-                <p class="legal-paragraph">
-                    <b>Limitation of Liability:</b> In no event will [Your Guild Name] Guild or its members be liable for any loss or damage, including indirect or consequential loss, arising from the use of this website or reliance on its content.
-                </p>
+                    <p class="legal-paragraph">
+                        <b>External Links & Third-Party Resources:</b> Our website provides links to external third-party resources (e.g., Icy Veins, Wowhead) for informational purposes. We do not control, endorse, or guarantee the accuracy, completeness, or practices of these external sites. Visiting them is at your own risk; please review their respective terms and privacy policies.
+                    </p>
 
-                <p class="legal-paragraph">
-                    <b>Privacy Policy:</b> We collect minimal non-personally identifiable information for website analytics. Any personal data submitted (e.g., for forum accounts, if applicable) is handled according to our Privacy Policy, available <a href="#" class="text-purple-400 hover:underline">here</a>.
-                </p>
+                    <p class="legal-paragraph">
+                        <b>Information Accuracy & No Guarantees:</b> The information provided on this site, whether original or derived from external sources, is for general informational purposes only and is subject to change. We make no representations or warranties regarding its accuracy, completeness, or suitability for any purpose. Reliance on this information is strictly at your own risk. Game content and strategies change frequently, and our information may become outdated.
+                    </p>
+
+                    <p class="legal-paragraph">
+                        <b>Limitation of Liability:</b> In no event will Devil's Paradise or its members be liable for any loss or damage, including indirect or consequential loss, arising from the use of this website or reliance on its content.
+                    </p>
+
+                    <p class="legal-paragraph">
+                        <b>Privacy Policy:</b> We collect minimal non-personally identifiable information for website analytics. Any personal data submitted is handled according to our Privacy Policy, available <a href="/privacy" class="text-purple-400 hover:underline">here</a>.
+                    </p>
+                </div>
             </div>
             </div>
 
@@ -164,17 +179,54 @@
     <script type="module" src="pages/war-engine/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const showMoreBtn = document.querySelector('.show-more-btn');
-            const hiddenContent = document.querySelector('.hidden-legal-content');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
 
-            if (showMoreBtn && hiddenContent) {
-                showMoreBtn.addEventListener('click', function() {
-                    if (hiddenContent.style.display === 'none' || hiddenContent.style.display === '') {
-                        hiddenContent.style.display = 'inline';
-                        showMoreBtn.textContent = '... Show Less';
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === targetTab) {
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            const exploreDungeonsBtn = document.getElementById('exploreDungeonsBtn');
+            const dungeonCardsSection = document.getElementById('dungeonCardsSection');
+
+            if (exploreDungeonsBtn && dungeonCardsSection) {
+                exploreDungeonsBtn.addEventListener('click', function() {
+                    dungeonCardsSection.classList.toggle('expanded');
+                    if (dungeonCardsSection.classList.contains('expanded')) {
+                        exploreDungeonsBtn.textContent = 'Hide Dungeon Guides';
                     } else {
-                        hiddenContent.style.display = 'none';
-                        showMoreBtn.textContent = '... Show More';
+                        exploreDungeonsBtn.textContent = 'Explore All Dungeon Guides';
+                    }
+                });
+            }
+
+            const legalToggleBtn = document.getElementById('legal-toggle-btn');
+            const legalSummary = document.getElementById('legal-summary');
+            const legalFullContent = document.getElementById('legal-full-content');
+
+            if (legalToggleBtn && legalSummary && legalFullContent) {
+                legalToggleBtn.addEventListener('click', function() {
+                    if (legalFullContent.style.display === 'none' || legalFullContent.style.display === '') {
+                        legalFullContent.style.display = 'block';
+                        legalSummary.style.display = 'none';
+                        legalToggleBtn.textContent = 'Show Less';
+                    } else {
+                        legalFullContent.style.display = 'none';
+                        legalSummary.style.display = 'block';
+                        legalToggleBtn.textContent = '... Show More';
                     }
                 });
             }
