@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaving Devil's Paradise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #374151;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            text-align: center;
+            color: white;
+            max-width: 90%;
+            width: 400px;
+            display: none;
+        }
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+        }
+        .message-box button {
+            background-color: #ef4444;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 1rem;
+        }
+        .message-box button:hover {
+            background-color: #dc2626;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans flex items-center justify-center min-h-screen">
+
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg text-center max-w-md mx-auto">
+        <h1 class="text-3xl font-bold mb-6">You are leaving Devil's Paradise!</h1>
+        <p class="text-lg mb-8">
+            Click 'Yes' to proceed to <span id="destinationLink" class="font-semibold text-blue-400">the external website</span>.
+        </p>
+        <button
+            onclick="confirmRedirect()"
+            class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-xl transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75">Yes.</button>
+    </div>
+
+    <div id="messageBoxOverlay" class="message-box-overlay"></div>
+    <div id="messageBox" class="message-box">
+        <p id="messageBoxText" class="text-lg mb-4"></p>
+        <button onclick="closeMessageBox()">OK</button>
+    </div>
+
+    <script type="module">
+        import allowedDomains from './domains.js';
+
+        let redirectUrl = '';
+        const destinationLinkSpan = document.getElementById('destinationLink');
+        const messageBox = document.getElementById('messageBox');
+        const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+        const messageBoxText = document.getElementById('messageBoxText');
+
+        function showMessageBox(message) {
+            messageBoxText.textContent = message;
+            messageBox.style.display = 'block';
+            messageBoxOverlay.style.display = 'block';
+        }
+
+        function closeMessageBox() {
+            messageBox.style.display = 'none';
+            messageBoxOverlay.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const urlParam = params.get('url');
+
+            if (urlParam) {
+                if (urlParam.includes('<') || urlParam.includes('>')) {
+                    redirectUrl = '';
+                    destinationLinkSpan.textContent = 'an invalid external website';
+                    showMessageBox('The provided URL contains disallowed characters (< or >).');
+                    console.error("URL parameter contains banned characters:", urlParam);
+                    return;
+                }
+
+                try {
+                    redirectUrl = decodeURIComponent(urlParam);
+                    const url = new URL(redirectUrl);
+
+                    if (allowedDomains.includes(url.hostname)) {
+                        destinationLinkSpan.textContent = url.hostname;
+                    } else {
+                        redirectUrl = '';
+                        destinationLinkSpan.textContent = 'an unapproved external website';
+                        showMessageBox('The requested website is not on our approved list.');
+                        console.warn("Attempted redirection to an unapproved domain:", url.hostname);
+                    }
+                } catch (e) {
+                    redirectUrl = '';
+                    destinationLinkSpan.textContent = 'an invalid external website';
+                    showMessageBox('The provided URL is invalid.');
+                    console.error("Invalid URL parameter:", e);
+                }
+            } else {
+                redirectUrl = '';
+                destinationLinkSpan.textContent = 'the specified external website';
+                showMessageBox('No redirection URL was provided.');
+            }
+        });
+
+        function confirmRedirect() {
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+            } else {
+                showMessageBox('No valid or approved redirection URL provided.');
+            }
+        }
+    </script>
+</body>
+</html>
