@@ -1,5 +1,5 @@
 const allowedDomains = [
-    'discord.com',
+    'discord.gg',
     'developer.mozilla.org' // Documentation about errors.
 ];
 
