@@ -1,4 +1,10 @@
-export const craftingData = [];
+export const craftingData = [
+    {
+        title: "WoW-Professions Classic",
+        category: "Profession Guides",
+        link: "https://www.wow-professions.com/classic"
+    }
+];
 
 function createGuideCard(guide) {
     const card = document.createElement('a');
