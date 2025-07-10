@@ -1,5 +1,5 @@
 import { setupDungeonTab, icyVeinsDungeonData, wowheadDungeonData } from './dungeons.js';
-import { setupClassTab, icyVeinsClassData, wowheadClassData } from './classes.js';
+import { setupClassTab, icyVeinsClassData, wowheadClassData } from './class.js';
 import { setupCraftingTab, craftingData } from './crafting.js';
 
 const tabButtons = document.querySelectorAll('.tab-button');
