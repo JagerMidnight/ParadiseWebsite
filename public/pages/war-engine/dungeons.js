@@ -20,9 +20,7 @@ export const icyVeinsDungeonData = [
 ];
 
 export const wowheadDungeonData = [
-    { id: 'wh-deadmines', title: 'Deadmines (Wowhead)', category: 'Classic', link: 'https://www.wowhead.com/classic/guides/deadmines-dungeon-guide' },
-    { id: 'wh-wailing-caverns', title: 'Wailing Caverns (Wowhead)', category: 'Classic', link: 'https://www.wowhead.com/classic/guides/wailing-caverns-dungeon-guide' },
-    { id: 'wh-sm-cathedral', title: 'Scarlet Monastery Cathedral (Wowhead)', category: 'Classic', link: 'https://www.wowhead.com/classic/guides/scarlet-monastery-cathedral-dungeon-guide' },
+    { id: 'wh-classic-overview', title: 'Classic Dungeons Overview (Wowhead)', category: 'Classic', link: 'https://www.wowhead.com/classic/guide/classic-dungeons-overview' },
 ];
 
 function createGuideCard(guide) {
