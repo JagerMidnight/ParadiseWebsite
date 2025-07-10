@@ -38,27 +38,27 @@
         .tab-content.active {
             display: block !important;
         }
-        .dungeon-cards-container {
+        .cards-container { /* Renamed for general use */
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.7s ease-out, padding 0.7s ease-out;
+            transition: max-height 0.7s ease-out, padding 0.7s ease-out, opacity 0.7s ease-out;
             padding-top: 0;
             padding-bottom: 0;
             opacity: 0;
             pointer-events: none;
         }
 
-        .dungeon-cards-container.expanded {
-            max-height: 2000px;
+        .cards-container.expanded {
+            max-height: 2000px; /* Adjust as needed */
             padding-top: 2rem;
             padding-bottom: 2rem;
             opacity: 1;
             pointer-events: all;
         }
-        .dungeon-card {
+        .guide-card { /* Renamed from dungeon-card for general use */
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .dungeon-card:hover {
+        .guide-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
         }
@@ -107,31 +107,50 @@
             <button class="tab-button py-3 px-6 text-xl font-semibold text-gray-400 hover:text-purple-400 focus:outline-none transition-colors duration-300" data-tab="crafting">Crafting Corner</button>
         </div>
 
-        <div id="dungeon" class="tab-content active bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 text-center flex flex-col items-center justify-center space-y-4">
-            <h2 class="text-4xl font-bold mb-2 text-purple-300">Dungeon Guides</h2>
-            <p class="text-gray-400 text-xl max-w-2xl mb-4">
+        <div id="dungeon" class="tab-content active bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 flex flex-col items-center justify-center space-y-4">
+            <h2 class="text-4xl font-bold mb-2 text-purple-300 text-center">Dungeon Guides</h2>
+            <p class="text-gray-400 text-xl max-w-2xl text-center mb-4">
                 Dive deep into comprehensive strategies and detailed walkthroughs for every dungeon. Learn boss mechanics, optimal routes, and hidden secrets to conquer challenges with unparalleled ease!
             </p>
-            <button id="exploreDungeonsBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
-                Explore All Dungeon Guides
-            </button>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+                <button id="exploreIcyVeinsDungeonsBtn" class="guide-button bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
+                    Explore Icy Veins Guides
+                </button>
+                <button id="exploreWowheadDungeonsBtn" class="guide-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+                    Explore Wowhead Guides
+                </button>
+            </div>
 
-            <div id="dungeonCardsSection" class="dungeon-cards-container w-full">
+            <div id="icyVeinsDungeonCardsSection" class="cards-container w-full">
+                <h3 class="text-3xl font-bold text-center text-purple-200 mb-6">Icy Veins Dungeon Guides</h3>
                 <div class="relative mb-8 max-w-md mx-auto">
-                    <input type="text" id="dungeonSearch" placeholder="Search dungeons..." class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-lg">
+                    <input type="text" id="icyVeinsDungeonSearch" placeholder="Search Icy Veins dungeons..." class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-lg">
                     <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
-                <div id="dungeonCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    </div>
-                <p id="noResults" class="text-gray-400 text-xl mt-8 hidden">No guides found matching your search.</p>
+                <div id="icyVeinsDungeonCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+                <p id="noIcyVeinsDungeonResults" class="text-gray-400 text-xl mt-8 hidden text-center">No Icy Veins guides found matching your search.</p>
+            </div>
+
+            <div id="wowheadDungeonCardsSection" class="cards-container w-full">
+                <h3 class="text-3xl font-bold text-center text-blue-200 mb-6">Wowhead Dungeon Guides</h3>
+                <div class="relative mb-8 max-w-md mx-auto">
+                    <input type="text" id="wowheadDungeonSearch" placeholder="Search Wowhead dungeons..." class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-lg">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <div id="wowheadDungeonCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+                <p id="noWowheadDungeonResults" class="text-gray-400 text-xl mt-8 hidden text-center">No Wowhead guides found matching your search.</p>
             </div>
 
             <div class="w-full text-left mt-8 p-4 bg-gray-700 rounded-lg shadow-inner border border-gray-600">
-                <h3 class="text-xl font-bold mb-2 text-purple-300 text-center">Important Legal Information & Disclaimers</h3> 
-                    <p id="legal-summary"></p>
-                        <button id="legal-toggle-btn">Show</button>
+                <h3 class="text-xl font-bold mb-2 text-purple-300 text-center">Important Legal Information & Disclaimers</h3>
+                <p id="legal-summary"></p>
+                <button id="legal-toggle-btn">Show</button>
 
                 <div id="legal-full-content">
                     <p class="legal-paragraph">
@@ -155,20 +174,68 @@
                     </p>
                 </div>
             </div>
-            </div>
-
-        <div id="class" class="tab-content bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 text-center flex flex-col items-center justify-center space-y-3">
-            <h2 class="text-4xl font-bold mb-2 text-purple-300">Class Guides</h2>
-            <p class="text-gray-400 text-xl max-w-2xl">
-                Master your character with these expert-crafted, in-depth guides covering optimal builds, precise ability rotations, and advanced tips for every class. Unleash your full potential!
-            </p>
         </div>
 
-        <div id="crafting" class="tab-content bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 text-center flex flex-col items-center justify-center space-y-3">
-            <h2 class="text-4xl font-bold mb-2 text-purple-300">Crafting Corner</h2>
-            <p class="text-gray-400 text-xl max-w-2xl">
+        <div id="class" class="tab-content bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 flex flex-col items-center justify-center space-y-4">
+            <h2 class="text-4xl font-bold mb-2 text-purple-300 text-center">Class Guides</h2>
+            <p class="text-gray-400 text-xl max-w-2xl text-center mb-4">
+                Master your character with these expert-crafted, in-depth guides covering optimal builds, precise ability rotations, and advanced tips for every class. Unleash your full potential!
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+                <button id="exploreIcyVeinsClassBtn" class="guide-button bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
+                    Explore Icy Veins Guides
+                </button>
+                <button id="exploreWowheadClassBtn" class="guide-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+                    Explore Wowhead Guides
+                </button>
+            </div>
+
+            <div id="icyVeinsClassCardsSection" class="cards-container w-full">
+                <h3 class="text-3xl font-bold text-center text-purple-200 mb-6">Icy Veins Class Guides</h3>
+                <div class="relative mb-8 max-w-md mx-auto">
+                    <input type="text" id="icyVeinsClassSearch" placeholder="Search Icy Veins classes..." class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-lg">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <div id="icyVeinsClassCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+                <p id="noIcyVeinsClassResults" class="text-gray-400 text-xl mt-8 hidden text-center">No Icy Veins guides found matching your search.</p>
+            </div>
+
+            <div id="wowheadClassCardsSection" class="cards-container w-full">
+                <h3 class="text-3xl font-bold text-center text-blue-200 mb-6">Wowhead Class Guides</h3>
+                <div class="relative mb-8 max-w-md mx-auto">
+                    <input type="text" id="wowheadClassSearch" placeholder="Search Wowhead classes..." class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-lg">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <div id="wowheadClassCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+                <p id="noWowheadClassResults" class="text-gray-400 text-xl mt-8 hidden text-center">No Wowhead guides found matching your search.</p>
+            </div>
+        </div>
+
+        <div id="crafting" class="tab-content bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 flex flex-col items-center justify-center space-y-4">
+            <h2 class="text-4xl font-bold mb-2 text-purple-300 text-center">Crafting Corner</h2>
+            <p class="text-gray-400 text-xl max-w-2xl text-center mb-4">
                 These guides cover essential recipes, efficient material farming locations, and smart strategies to maximize your crafting output.
             </p>
+            <button id="exploreCraftingGuidesBtn" class="guide-button bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
+                Explore All Crafting Guides
+            </button>
+            <div id="craftingCardsSection" class="cards-container w-full">
+                <div class="relative mb-8 max-w-md mx-auto">
+                    <input type="text" id="craftingSearch" placeholder="Search crafting guides..." class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-lg">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <div id="craftingCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+                <p id="noCraftingResults" class="text-gray-400 text-xl mt-8 hidden text-center">No crafting guides found matching your search.</p>
+            </div>
         </div>
     </div>
 
